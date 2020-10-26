@@ -2,10 +2,10 @@
  * Copyright (C) 2017 by Alex Fosdick - University of Colorado
  *
  * Redistribution, modification or use of this software in source or binary
- * forms is permitted as long as the files maintain this copyright. Users are 
+ * forms is permitted as long as the files maintain this copyright. Users are
  * permitted to modify this and use it to learn about the field of embedded
  * software. Alex Fosdick and the University of Colorado are not liable for any
- * misuse of this material. 
+ * misuse of this material.
  *
  *****************************************************************************/
 /**
@@ -48,3 +48,54 @@ void clear_all(char * ptr, unsigned int size){
   set_all(ptr, 0, size);
 }
 
+uint8_t * my_memmove(uint8_t * src, uint8_t * dst, size_t length){
+    uint8_t *temp = (uint8_t*)malloc(length*sizeof(uint8_t));
+    for(int i = 0;i<length;i++){
+        *(temp + i) = *(src + i);
+    }
+    for(int i = 0;i<length;i++){
+        *(dst + i) = *(temp + i);
+    }
+    free(temp);
+    return dst;
+}
+
+uint8_t * my_memcopy(uint8_t * src, uint8_t * dst, size_t length){
+    for(int i=0;i<length;i++){
+        *(dst + i) = *(src + i);
+    }
+    return dst;
+}
+
+uint8_t * my_memset(uint8_t * src, size_t length, uint8_t value){
+    for(int i=0;i<length;i++){
+        *(src + i) = value;
+    }
+    return src;
+}
+
+uint8_t * my_memzero(uint8_t * src, size_t length){
+    for(int i =0;i<length;i++){
+        *(src + i) = 0;
+    }
+    return src;
+}
+
+uint8_t * my_reverse(uint8_t * src, size_t length){
+    uint8_t temp;
+    for(int i =0;i<length/2;i++){
+        temp = *(src + i);
+        *(src + i) = *(src + length - i);
+        *(src + length - i) = temp;
+    }
+    return src;
+}
+
+int32_t * reserve_words(size_t length){
+    int32_t * src = (int32_t*)malloc(length*sizeof(int32_t));
+    return src;
+}
+
+void free_words(int32_t * src){
+    free(src);
+}
